@@ -32,7 +32,9 @@ Creating Database
 Create a Database in the name 'tournament'
 
 1.Type command psql tournament to get in to the Database
+
 2.Now run the command \i tournament.sql to create tables
+
 3.Exit the Database using ctrl+d
 
 
