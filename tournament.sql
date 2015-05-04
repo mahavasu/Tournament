@@ -22,7 +22,7 @@ CREATE TABLE matches(
 	Match_id serial primary key,
 	Player1_id integer references players,
 	Player2_id integer references players,
-	Result integer references players -- included this column to handle tie match
+	Result integer references players -- EXTRA COLUMN included to handle tie match for extra credit
         );
 
 --creating a view to store the details of the player and the matches they won and played
