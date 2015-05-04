@@ -1,36 +1,36 @@
-- Table definitions for the tournament project.
+-- Table definitions for the tournament project.
 
 
--- Dropping all the table and views after making sure is that one exists 
-drop view if exists standings cascade;
-drop table if exists matches cascade;
-drop table if exists players cascade;
+-- Dropping all the Table and views after making sure is that one exists 
+DROP VIEW IF EXISTS standings CASCADE;
+DROP TABLE IF EXISTS matches CASCADE;
+DROP TABLE IF EXISTS players CASCADE;
 
 
 
 
 -- creating tables for storing details of the players
 
-create table players(
-	player_id serial primary key,
-	name text
+CREATE TABLE players(
+	Player_id serial primary key,
+	Player_name text
         );
 
 
---creating table to store the details of the match
-create table matches(
-	match_id serial primary key,
-	player1_id integer references players,
-	player2_id integer references players,
-	winner_id integer references players
+--creating Table to store the details of the match
+CREATE TABLE matches(
+	Match_id serial primary key,
+	Player1_id integer references players,
+	Player2_id integer references players,
+	Result integer references players -- included this column to handle tie match
         );
 
 --creating a view to store the details of the player and the matches they won and played
-create view standings as
-	select players.player_id as player_id, players.name,
-        (select count(*) from matches where matches.winner_id = players.player_id) as matches_won,
-        (select count(*) from matches where players.player_id in (player1_id, player2_id) ) as matches_played
-	from players
-	group by players.player_id
-	order by matches_won DESC;
+CREATE VIEW standings as
+	SELECT players.Player_id as Player_id, Player_name,
+        (SELECT COUNT(*) FROM matches WHERE matches.Result = players.player_id) as matches_won,
+        (SELECT COUNT(*) FROM matches WHERE players.player_id in (player1_id, player2_id) ) as matches_played
+	FROM players
+	GROUP BY players.player_id
+	ORDER BY matches_won DESC;
 
