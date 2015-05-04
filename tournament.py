@@ -80,7 +80,7 @@ def playerStandings():
 
     # Gets details from the View standing which has the information
     # about the players and their matches record
-    cursor.execute("SELECT Player_id, Player_name, matches_won, matches_played FROM standings order by matches_won desc");
+    cursor.execute("SELECT Player_id, Player_name, matches_won, matches_played FROM standings order by matches_won desc")
 
     values = cursor.fetchall()
     connection.commit()
