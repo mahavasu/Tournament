@@ -59,11 +59,11 @@ def registerPlayer(name):
     Args:
       name: the player's full name (need not be unique).
     """
-    #Connecting to the database tournament
+    # Connecting to the database tournament
     connection = connect()
     cursor = connection.cursor()
 
-    #inserts a record in the player table
+    # inserts a record in the player table
     cursor.execute("insert into players (Player_name) values (%s)",(name,))
     
     connection.commit()
@@ -89,7 +89,7 @@ def playerStandings():
    
   
 
-    #Gets details from the View standing   which has the information about the players and their matches record
+    # Gets details from the View standing   which has the information about the players and their matches record
     cursor.execute("SELECT Player_id, Player_name, matches_won, matches_played FROM standings order by matches_won desc");
     
     values = cursor.fetchall()
@@ -106,11 +106,11 @@ def reportMatch(player1,player2,winner):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
-    #Connecting to the database tournament
+    # Connecting to the database tournament
     connection = connect()
     cursor = connection.cursor()
 
-    #inserting record in to the matches table
+    # inserting record in to the matches table
     cursor.execute("insert into matches (Player1_id,Player2_id,Result) VALUES (%s,%s,%s)",(player1,player2,winner))
     
     connection.commit()
@@ -131,7 +131,7 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
-    #Connecting to the database tournament
+    # Connecting to the database tournament
     connection = connect()
     cursor = connection.cursor()
 
@@ -142,7 +142,7 @@ def swissPairings():
 
     pairings = []
     noofplayers = len(players)
-    #Here getting all the players pairing 
+    # Here getting all the players pairing 
     for i in range(0,noofplayers-1 ,2):
        pairing = (players[i][0], players[i][1], players[i+1][0],players[i+1][1])
        pairings.append(pairing)
