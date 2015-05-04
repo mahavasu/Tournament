@@ -22,7 +22,7 @@ def executeQuery(query):
 def deleteMatches():
     """Removes all the match records from the database."""	    
     
-    executeQuery("delete from matches")
+    executeQuery("DELETE FROM matches")
    
 
 def deletePlayers():
@@ -30,7 +30,7 @@ def deletePlayers():
     
     
     """Removing all the player records from the database."""
-    executeQuery("delete from players")
+    executeQuery("DELETE FROM players")
    
 
 def countPlayers():
@@ -41,7 +41,7 @@ def countPlayers():
     connection = connect()
     cursor = connection.cursor()
    
-    cursor.execute("select count(*) from players")
+    cursor.execute("SELECT count(*) FROM players")
     player_count = cursor.fetchone()[0]
 
     connection.commit()
@@ -64,7 +64,7 @@ def registerPlayer(name):
     cursor = connection.cursor()
 
     #inserts a record in the player table
-    cursor.execute("insert into players (name) values (%s)",(name,))
+    cursor.execute("insert into players (Player_name) values (%s)",(name,))
     
     connection.commit()
     connection.close()
@@ -90,7 +90,7 @@ def playerStandings():
   
 
     #Gets details from the View standing   which has the information about the players and their matches record
-    cursor.execute("select player_id, name, matches_won, matches_played from standings order by matches_won desc");
+    cursor.execute("SELECT Player_id, Player_name, matches_won, matches_played FROM standings order by matches_won desc");
     
     values = cursor.fetchall()
     connection.commit()
@@ -111,7 +111,7 @@ def reportMatch(player1,player2,winner):
     cursor = connection.cursor()
 
     #inserting record in to the matches table
-    cursor.execute("insert into matches (player1_id,player2_id,winner_id) VALUES (%s,%s,%s)",(player1,player2,winner))
+    cursor.execute("insert into matches (Player1_id,Player2_id,Result) VALUES (%s,%s,%s)",(player1,player2,winner))
     
     connection.commit()
     connection.close()
@@ -135,7 +135,7 @@ def swissPairings():
     connection = connect()
     cursor = connection.cursor()
 
-    cursor.execute("select player_id, name, matches_won from standings")
+    cursor.execute("SELECT Player_id, Player_name, matches_won FROM standings")
     players = cursor.fetchall()
     
     connection.close()
