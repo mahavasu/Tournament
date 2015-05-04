@@ -1,6 +1,6 @@
 -- Table definitions for the tournament project.
 
--- Dropping all the Table and views after making sure is that one exists
+--Cleaning the database before starting a new tournament
 DROP VIEW IF EXISTS standings CASCADE;
 DROP TABLE IF EXISTS matches CASCADE;
 DROP TABLE IF EXISTS players CASCADE;
