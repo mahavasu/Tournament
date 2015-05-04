@@ -35,6 +35,7 @@ Create a Database in the name 'tournament'
 2.Now run the command \i tournament.sql to create tables
 3.Exit the database using ctrl+d
 
+
 How to Run the program
 
 1.Type the command python tournament_test.py
