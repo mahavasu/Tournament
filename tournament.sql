@@ -23,8 +23,8 @@ CREATE TABLE matches(
 
 -- creating a view to store the details of the player
 -- and the matches they won and played
-CREATE VIEW standings as
-    SELECT players.Player_id as Player_id, Player_name,
-    (SELECT COUNT(*) FROM matches WHERE matches.Result = players.player_id) as matches_won,
-    (SELECT COUNT(*) FROM matches WHERE players.player_id in (player1_id, player2_id) ) as matches_played 
-    FROM players GROUP BY players.player_id ORDER BY matches_won DESC;
+CREATE VIEW standings AS
+SELECT players.Player_id as Player_id, Player_name,
+(SELECT COUNT(*) FROM matches WHERE matches.Result = players.player_id) as matches_won,
+(SELECT COUNT(*) FROM matches WHERE players.player_id in (player1_id, player2_id)) as matches_played
+FROM players GROUP BY players.player_id ORDER BY matches_won DESC;
