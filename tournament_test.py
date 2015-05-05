@@ -42,6 +42,51 @@ def testRegisterCountDelete():
     deleteMatches()
     deletePlayers()
     registerPlayer("Markov Chaney")
+#!/usr/bin/env python
+#
+# Test cases for tournament.py
+
+from tournament import *
+
+
+def testDeleteMatches():
+    deleteMatches()
+    print "1. Old matches can be deleted."
+
+
+def testDelete():
+    deleteMatches()
+    deletePlayers()
+    print "2. Player records can be deleted."
+
+
+def testCount():
+    deleteMatches()
+    deletePlayers()
+    c = countPlayers()
+    if c == '0':
+        raise TypeError(
+            "countPlayers() should return numeric zero, not string '0'.")
+    if c != 0:
+        raise ValueError("After deleting, countPlayers should return zero.")
+    print "3. After deleting, countPlayers() returns zero."
+
+
+def testRegister():
+    deleteMatches()
+    deletePlayers()
+    registerPlayer("Chandra Nalaar")
+    c = countPlayers()
+    if c != 1:
+        raise ValueError(
+            "After one player registers, countPlayers() should be 1.")
+    print "4. After registering a player, countPlayers() returns 1."
+
+
+def testRegisterCountDelete():
+    deleteMatches()
+    deletePlayers()
+    registerPlayer("Markov Chaney")
     registerPlayer("Joe Malik")
     registerPlayer("Mao Tsu-hsi")
     registerPlayer("Atlanta Hope")
@@ -88,8 +133,8 @@ def testReportMatches():
     registerPlayer("Diane Grant")
     standings = playerStandings()
     [id1, id2, id3, id4] = [row[0] for row in standings]
-    reportMatch(id1, id2,id1)
-    reportMatch(id3, id4,id3)
+    reportMatch(id1, id2, 'T')
+    reportMatch(id3, id4, 'T')
     standings = playerStandings()
     for (i, n, w, m) in standings:
         if m != 1:
@@ -110,8 +155,8 @@ def testPairings():
     registerPlayer("Pinkie Pie")
     standings = playerStandings()
     [id1, id2, id3, id4] = [row[0] for row in standings]
-    reportMatch(id1, id2,id1)
-    reportMatch(id3, id4,id3)
+    reportMatch(id1, id2, 'T')
+    reportMatch(id3, id4, 'T')
     pairings = swissPairings()
     if len(pairings) != 2:
         raise ValueError(
@@ -124,6 +169,7 @@ def testPairings():
             "After one match, players with one win should be paired.")
     print "8. After one match, players with one win are paired."
 
+
 def testTie():
     deleteMatches()
     deletePlayers()
@@ -132,24 +178,19 @@ def testTie():
     registerPlayer("Applejack")
     registerPlayer("Pinkie Pie")
     standings = playerStandings()
-   
     [id1, id2, id3, id4] = [row[0] for row in standings]
-    reportMatch(id1, id2,id1)
-    reportMatch(id3, id4,id3)
-    reportMatch(id2, id4,None)
-    
+    reportMatch(id1, id2, 'T')
+    reportMatch(id3, id4, 'T')
+    reportMatch(id2, id4, 'F')
     standings = playerStandings()
-   
     for (i, n, w, m) in standings:
         if m < 1:
             raise ValueError("Each player should have one match recorded.")
-        if((w==1)and  i in (id2,id4)):
-	    raise ValueError("Player has a win after a draw")	 
-    
-    
+        if((w == 1)and i in (id2, id4)):
+            raise ValueError("Player has a win after a draw")
     print "9. After having a draw in a match and losing a match, both players have two matches played and no wins"
     print " "
-    
+
 if __name__ == '__main__':
     testDeleteMatches()
     testDelete()
@@ -161,10 +202,13 @@ if __name__ == '__main__':
     testPairings()
     print "Success!  All tests pass!"
     print " "
+
     print "Test for extra credits"
     print " "
     testTie()
     print " "
+
+    
     
     
     
