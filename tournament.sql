@@ -8,8 +8,8 @@ DROP TABLE IF EXISTS players CASCADE;
 -- Creating tables for storing details of the players
 
 CREATE TABLE players(
-    Player_id serial primary key NOT NULL,
-    Player_name text NOT NULL
+    player_id serial primary key NOT NULL,
+    player_name text NOT NULL
     );
 
 -- Creating Table to store the details of the match
@@ -17,16 +17,16 @@ CREATE TABLE players(
 -- Result column will store T(true) if there is a result, else F(False) in case of tie 
 -- Winner will be player1(defualt) in case result is not a tie.
 CREATE TABLE matches(
-    Match_id serial primary key NOT NULL,
-    Player1_id integer references players NOT NULL,
-    Player2_id integer references players NOT NULL,
-    Result boolean DEFAULT 'T'
+    match_id serial primary key NOT NULL,
+    player1_id integer references players NOT NULL,
+    player2_id integer references players NOT NULL,
+    result boolean DEFAULT 'T'
     );
 
 -- Creating a view to display the details of the player
 -- and the matches they won and played
 CREATE VIEW standings AS
 SELECT players.Player_id as Player_id, Player_name,
-(SELECT COUNT(*) FROM matches WHERE matches.Player1_id=players.player_id and matches.Result='T') as matches_won,
+(SELECT COUNT(*) FROM matches WHERE matches.player1_id=players.player_id and matches.result='T') as matches_won,
 (SELECT COUNT(*) FROM matches WHERE players.player_id in (player1_id, player2_id)) as matches_played
 FROM players GROUP BY players.player_id ORDER BY matches_won DESC;
