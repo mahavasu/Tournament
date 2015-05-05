@@ -80,7 +80,7 @@ def playerStandings():
 
     # Gets details from the View standing which has the information
     # about the players and their matches record
-    cursor.execute("SELECT Player_id, Player_name, matches_won, matches_played FROM standings order by matches_won desc")
+    cursor.execute("SELECT player_id, player_name, matches_won, matches_played FROM standings order by matches_won desc")
 
     values = cursor.fetchall()
     connection.commit()
@@ -102,9 +102,9 @@ def reportMatch(player1, player2, winner):
 
     # inserting record in to the matches table
     if (winner == 'T'):
-        cursor.execute("insert into matches (Player1_id, Player2_id, Result) VALUES (%s, %s, 'T')", (player1, player2, ))
+        cursor.execute("insert into matches (player1_id, player2_id, result) VALUES (%s, %s, 'T')", (player1, player2, ))
     else:
-        cursor.execute("insert into matches (Player1_id, Player2_id, Result) VALUES (%s, %s, 'F')", (player1, player2, ))
+        cursor.execute("insert into matches (player1_id, player2_id, result) VALUES (%s, %s, 'F')", (player1, player2, ))
     connection.commit()
     connection.close()
 
