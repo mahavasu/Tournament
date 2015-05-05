@@ -62,8 +62,10 @@ def registerPlayer(name):
 
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
+
     The first entry in the list should be the player in first place,
     or a player tied for first place if there is currently a tie.
+
     Returns:
       A list of tuples, each of which contains (id, name, wins, matches):
         id: the player's unique id (assigned by the database)
@@ -89,6 +91,7 @@ def playerStandings():
 
 def reportMatch(player1, player2, winner):
     """Records the outcome of a single match between two players.
+
     Args:
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
@@ -98,7 +101,10 @@ def reportMatch(player1, player2, winner):
     cursor = connection.cursor()
 
     # inserting record in to the matches table
-    cursor.execute("insert into matches (Player1_id, Player2_id, Result) VALUES (%s, %s, %s)", (player1, player2, winner))
+    if (winner == 'T'):
+        cursor.execute("insert into matches (Player1_id, Player2_id, Result) VALUES (%s, %s, 'T')", (player1, player2, ))
+    else:
+        cursor.execute("insert into matches (Player1_id, Player2_id, Result) VALUES (%s, %s, 'F')", (player1, player2, ))
     connection.commit()
     connection.close()
 
