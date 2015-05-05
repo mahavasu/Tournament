@@ -10,7 +10,9 @@ of players and matches in a game tournament, using the Swiss pairing system.
 Files
 
 tournament.py -- implementation of a Swiss-system tournament
+
 tournament.sql -- table definitions for the tournament project.
+
 tournament_test.py -- Test cases for tournament.py
 
 Requirement:
