@@ -14,7 +14,8 @@ CREATE TABLE players(
 
 -- Creating Table to store the details of the match
 -- Included Result column to handle match results in tie
--- Result column will store T(true) if there is a result, else F(False) in case of tie
+-- Result column will store T(true) if there is a result, else F(False) in case of tie 
+-- Winner will be player1(defualt) in case result is not a tie.
 CREATE TABLE matches(
     Match_id serial primary key NOT NULL,
     Player1_id integer references players NOT NULL,
